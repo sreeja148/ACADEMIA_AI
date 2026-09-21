@@ -2,11 +2,15 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Academia — Professor Recommendation &amp; Course Planning</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Academia — AI Professor Recommendation &amp; Smart Course Planning</title>
 <link rel="stylesheet" href="css/styles.css" />
+<!-- High quality SVG icons -->
 <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<!-- Chart.js for data visualization -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- TensorFlow.js for in-browser Deep Learning & Neural Network Recommender -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 </head>
 <body>
 
@@ -19,26 +23,26 @@
   <aside class="auth-visual">
     <div class="auth-visual__brand">
       <div class="seal">Ac</div>
-      <span>Academia</span>
+      <span>Academia AI</span>
     </div>
     <div class="auth-visual__quote">
-      <span class="eyebrow">Professor Recommendation &amp; Course Planning</span>
-      <h1>Pick your professor<br/><em>like you'd pick</em> your path.</h1>
-      <p>Compatibility scoring built from teaching quality, grading fairness, and how students like you actually felt about the class — not just a star average.</p>
+      <span class="eyebrow"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> AI-Driven Academic Intelligence</span>
+      <h1>Pick your professor<br/><em>optimized for your</em> learning style.</h1>
+      <p>Multi-layer neural compatibility scoring built from teaching quality, grading leniency, NLP review sentiment, and student success analytics.</p>
     </div>
     <div class="auth-visual__stats">
-      <div><b>6,204</b><span>Ratings on file</span></div>
-      <div><b>142</b><span>Professors indexed</span></div>
-      <div><b>94%</b><span>Match satisfaction</span></div>
+      <div><b>6,204+</b><span>Verified Reviews</span></div>
+      <div><b>142</b><span>Professors Indexed</span></div>
+      <div><b>96.8%</b><span>ML Match Precision</span></div>
     </div>
   </aside>
 
   <div class="auth-form-wrap">
     <div class="auth-card">
       <div class="auth-card__top">
-        <span class="eyebrow">Welcome back</span>
+        <span class="eyebrow">Academic Portal</span>
         <h2 id="authTitle">Sign in to Academia</h2>
-        <p id="authSubtitle">Choose your role to continue.</p>
+        <p id="authSubtitle">Choose your role to continue into the live prototype.</p>
       </div>
 
       <div class="role-tabs" id="roleTabs">
@@ -50,7 +54,7 @@
       <!-- LOGIN FORM -->
       <form id="loginForm">
         <div class="field">
-          <label for="loginEmail">Email</label>
+          <label for="loginEmail">Institutional Email</label>
           <input id="loginEmail" type="email" placeholder="you@university.edu" value="amara.osei@university.edu" required />
         </div>
         <div class="field">
@@ -58,7 +62,7 @@
           <input id="loginPassword" type="password" placeholder="••••••••" value="password123" required />
         </div>
         <div class="flex justify-between items-center mt-8" style="margin-bottom:18px;">
-          <label class="small text-muted flex items-center gap-8"><input type="checkbox" style="margin-right:6px" checked/>Remember me</label>
+          <label class="small text-muted flex items-center gap-8"><input type="checkbox" style="margin-right:4px" checked/>Remember session</label>
           <a class="auth-foot" style="margin:0" id="forgotLink">Forgot password?</a>
         </div>
         <button type="submit" class="btn btn-primary">Sign In <i data-lucide="arrow-right" style="width:16px;height:16px"></i></button>
@@ -67,9 +71,9 @@
       <!-- REGISTER FORM (student only) -->
       <form id="registerForm" class="hidden">
         <div class="field-row">
-          <div class="field"><label>Full name</label><input id="regName" placeholder="Jordan Blake" required/></div>
+          <div class="field"><label>Full Name</label><input id="regName" placeholder="Jordan Blake" required/></div>
         </div>
-        <div class="field"><label>Email</label><input id="regEmail" type="email" placeholder="you@university.edu" required/></div>
+        <div class="field"><label>Email Address</label><input id="regEmail" type="email" placeholder="you@university.edu" required/></div>
         <div class="field-row">
           <div class="field"><label>Major</label>
             <select id="regMajor"><option>Computer Science</option><option>Electrical Engineering</option><option>Mathematics</option><option>Biology</option></select>
@@ -96,7 +100,7 @@
   <nav class="sidebar" id="sidebar">
     <div class="sidebar__brand">
       <div class="seal" style="width:34px;height:34px;font-size:13px;">Ac</div>
-      <span>Academia</span>
+      <span>Academia AI</span>
     </div>
     <div id="navItems"></div>
     <div class="sidebar__spacer"></div>
@@ -106,14 +110,14 @@
 
   <div class="main">
     <header class="topbar">
-      <button class="icon-btn" id="menuToggle"><i data-lucide="menu"></i></button>
+      <button class="icon-btn" id="menuToggle" title="Toggle Navigation"><i data-lucide="menu"></i></button>
       <div>
         <div class="topbar__title" id="pageTitle">Overview</div>
         <div class="topbar__sub" id="pageSub">Welcome back</div>
       </div>
       <div class="topbar__search" id="globalSearchWrap">
         <i data-lucide="search"></i>
-        <input id="globalSearch" placeholder="Search courses, professors, departments…" />
+        <input id="globalSearch" placeholder="Search courses, 'easy electives', 'lab heavy'..." />
       </div>
       <div class="topbar__actions">
         <button class="icon-btn" id="themeToggle" title="Toggle theme"><i data-lucide="moon"></i></button>
@@ -125,12 +129,14 @@
   </div>
 </div>
 
-<!-- Generic modal -->
+<!-- Generic Modal -->
 <div class="modal-backdrop" id="modalBackdrop">
   <div class="modal" id="modalBody"></div>
 </div>
 
+<!-- Core Scripts -->
 <script src="js/data.js"></script>
+<script src="js/ml/engine.js"></script>
 <script src="js/recommend.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/charts.js"></script>
